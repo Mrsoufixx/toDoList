@@ -4,9 +4,11 @@ import "./style.css";
 
 <template>
   <div class="relative my-8 mx-5">
+    
     <div
       class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
     >
+    
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -41,6 +43,8 @@ import "./style.css";
   <article
     class="rounded-xl border border-gray-700 bg-gray-800 p-4 mx-5 text-white"
   >
+  <input type="checkbox" @change="(e)=>selectAll(e.target.checked)"/>
+
     <div
       :class="item.isHidden ? 'hidden' : ''"
       class="mt-4 space-y-2"
@@ -58,7 +62,7 @@ import "./style.css";
         <span
           class="block h-full rounded-lg border border-gray-700 p-4 hover:border-pink-600"
         >
-          <p class="mt-1 text-xs font-medium text-gray-300">
+          <p class="mt-1 text-xs font-medium text-gray-300" :class="item.isDone?'line-through':''">
             {{ item.message }}
           </p>
         </span>
@@ -95,9 +99,14 @@ export default {
     return {
       message: "",
       items: [],
+      console: console,
     };
   },
   methods: {
+
+    selectAll(value){
+      this.items.forEach((item)=>item.isDone=value)
+    },
     addToList() {
       this.items.push({
         message: this.message,
